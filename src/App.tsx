@@ -12,22 +12,20 @@ function App() {
         <div className='player_wrapper'></div>
         <Controls />
       </div>
-      <div className="editor_wrapper">
-        <EditorTabs 
-          width="350px"
-          height="100%"
-          files={{
-            "style.css": {
-              language: "css",
-              value: css
-            },
-            "index.html": {
-              language: "html",
-              value: html
-            },
-          }}
-        />
-      </div>
+      <EditorTabs 
+        width="400px"
+        height="100%"
+        files={{
+          "style.css": {
+            language: "css",
+            value: css
+          },
+          "index.html": {
+            language: "html",
+            value: html
+          },
+        }}
+      />
     </div>
   )
 }

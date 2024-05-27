@@ -54,3 +54,10 @@ button:hover {
   background: var(--primary);
   cursor: pointer;
 }
+
+.show_time_container {
+  color: var(--text);
+  display: flex;
+  justify-content: flex-end;
+  width: 87px;
+}
