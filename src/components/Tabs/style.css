@@ -1,0 +1,59 @@
+.tabs_wrapper {
+  --width: 100px;
+
+  display: grid;
+  grid-template-rows: max-content 1fr;
+}
+
+.tabs_button_container {
+  display: flex;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.tabs_button_container button {
+  width: var(--width);
+  min-width: var(--width);
+  text-align: left;
+  padding: 4px 8px;
+  border: none;
+  color: white;
+  background-color: var(--secoundary200);
+  cursor: pointer;
+  transition: all 400ms ease-in-out;
+  border: 1px solid transparent;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  border-radius: 8px 8px 0 0;
+}
+
+.tabs_button_container button.unselected {
+  border-bottom: 1px solid var(--primary);
+}
+
+.tabs_button_container button.unselected:hover {
+  background-color: var(--secoundary100);
+}
+
+.tabs_button_container button.selected {
+  background-color: var(--secoundary400);
+  border: 1px solid var(--primary);
+  border-bottom-color: transparent;
+}
+
+.tabs_button_container button.selected:hover {
+  background-color: var(--secoundary300);
+}
+
+.top_border {
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid var(--primary);
+}
+
+.tabs_element_container {
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid var(--primary);
+}
