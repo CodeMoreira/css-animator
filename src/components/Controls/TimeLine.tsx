@@ -4,32 +4,25 @@ import "./style.css"
 
 export default function TimeLine() {
     const { play, setPlay, time, currentTimePercentage, setCurrentTimePercentage } = useAnimation()
-    const getTime = time / 100
-    const interval = useRef<number>()
+    const timer = useRef<number>()
 
     useEffect(() => {
-        if (currentTimePercentage >= 1) {
-            clearInterval(interval.current)
+        if (play && currentTimePercentage >= 1) {
+            clearInterval(timer.current)
             setPlay(false)
             setCurrentTimePercentage(0)
-            console.log("Timer end", {
-                interval,
-                play,
-                currentTimePercentage
-            });
         }
     }, [currentTimePercentage])
 
     useEffect(() => {
         if (play) {
-            console.log("Timer start");
-            interval.current = setInterval(() => {
-                setCurrentTimePercentage(prev => prev + 0.1)
-                console.log("Timer running", {currentTimePercentage, getTime});
-            }, getTime);
+            timer.current = setInterval(() => {
+                const getPercentage = (1000 / time) / 100
+                setCurrentTimePercentage(prev => prev + getPercentage)
+            }, 10);
         }
-    
-        return () => clearInterval(interval.current);
+
+        return () => clearInterval(timer.current);
     }, [play])
 
     return (
