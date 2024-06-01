@@ -8,8 +8,9 @@ import SecoundaryButton from "../Buttons/Secoundary"
 import cssAnimatablePropertiesArray from "../../utils/cssAnimatableProperties.json"
 
 export default function AddNewAttributeModal() {
-    const { openAddModal, setOpenAddModal, setAnimations } = useAnimation()
+    const { animations, openAddModal, setOpenAddModal, setAnimations } = useAnimation()
     const [attribute, setAttribute] = useState("")
+    const filteredArray = cssAnimatablePropertiesArray.filter(propertie => !animations[propertie])
 
     const handleClose = () => {
         setOpenAddModal(false)
@@ -37,9 +38,10 @@ export default function AddNewAttributeModal() {
                 onChange={setAttribute}
             />
             <datalist id="browsers">
-                {cssAnimatablePropertiesArray.map(propertie => (
-                    <option value={propertie} />
-                ))}
+                {filteredArray.map(propertie => (
+                        <option key={propertie} value={propertie} />
+                    ))
+                }
             </datalist>
             <div className="buttons_container">
                 <SecoundaryButton
@@ -51,7 +53,7 @@ export default function AddNewAttributeModal() {
                     width="100%"
                     text="Confirm"
                     onClick={handleSave}
-                    disabled={!attribute || !cssAnimatablePropertiesArray.includes(attribute)}
+                    disabled={!attribute || !filteredArray.includes(attribute)}
                 />
             </div>
         </Modal>
