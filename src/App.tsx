@@ -4,7 +4,7 @@ import EditorTabs from './components/Tabs/EditorTabs'
 import { useAnimation } from './hooks/useAnimation'
 import Tabs from './components/Tabs/index';
 import AnimateOptions from './components/Options/AnimateOptions';
-import SupportOptions from './components/Options/Support';
+import SupportOptions from './components/Options/SupportOptions';
 import AddNewAttributeModal from './components/AddNewAttributeModal';
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
           placement='bottom'
           tabs={{
             Animate: <AnimateOptions />,
+            Configs: <AnimateOptions />,
             "Support me": <SupportOptions />,
           }}
         />
