@@ -59,13 +59,6 @@ export default function AnimateOptions() {
         return () => window.removeEventListener("keyup", onKeyUp)
     }, [frameSelected])
 
-    useEffect(() => {
-        if (frameSelected) {
-            console.log(animations[frameSelected.attr][0])
-            console.log(animations[frameSelected.attr][1])
-        }
-    }, [animations, frameSelected])
-
     return (
         <div className="options_wrapper">
             <div className="options_container">
@@ -115,10 +108,8 @@ export default function AnimateOptions() {
                                     className="attribute_container"
                                     onClick={({ currentTarget, screenX }) => {
                                         const elementWidth = currentTarget.clientWidth
-                                        const leftDistance = 146
 
-                                        const realPostion = screenX - leftDistance
-                                        const percentage = Number(((realPostion * 100) / elementWidth).toFixed())
+                                        const percentage = Number((((screenX * 100) / elementWidth) - 13).toFixed())
 
                                         const isCurrentMoreThanPrev = keyframes.length ? (percentage > keyframes[keyframes.length - 1].percentage) : true
 
@@ -143,6 +134,7 @@ export default function AnimateOptions() {
 
                                         return (
                                             <div
+                                                key={`${percentage}-${percentageIndex}`}
                                                 onMouseOver={() => setIsHoveringFrame(true)}
                                                 onMouseLeave={() => setIsHoveringFrame(false)}
                                                 onMouseDown={() => setDraggingFrame(true)}
