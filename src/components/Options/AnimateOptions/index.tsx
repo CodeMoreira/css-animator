@@ -68,7 +68,6 @@ export default function AnimateOptions() {
 
     return (
         <div className="options_wrapper">
-            <span>Add an attribute and click on the time track to add a keyframe.</span>
             <div className="options_container">
                 <div className="animation_timeline_wrapper">
 
@@ -221,4 +220,3 @@ export default function AnimateOptions() {
         </div>
     )
 }
-
