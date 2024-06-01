@@ -5,6 +5,9 @@
   gap: 8px;
   padding: 16px;
   background-color: var(--secoundary400);
+  border: 1px solid var(--primary);
+  border-bottom-color: transparent;
+  border-right-color: transparent;
 }
 
 button {
@@ -56,8 +59,9 @@ button:hover {
 }
 
 .show_time_container {
-  color: var(--text);
+  gap: 8px;
+  color: var(--text100);
   display: flex;
   justify-content: flex-end;
-  width: 87px;
+  align-items: center;
 }

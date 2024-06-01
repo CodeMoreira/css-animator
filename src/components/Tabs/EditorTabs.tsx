@@ -16,8 +16,8 @@ export default function EditorTabs({ files, width = "100%", height = "100%" }: I
     const file = filesArray[fileSelectedIndex]
 
     return (
-        <div className="tabs_wrapper" style={{ width, height }}>
-            <div className="tabs_button_container">
+        <div className="tabs_wrapper top" style={{ width, height }}>
+            <div className="tabs_button_container top">
                 {filesArray.map(({ name }, index) => (
                     <button
                         key={index}

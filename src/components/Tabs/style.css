@@ -1,45 +1,63 @@
 .tabs_wrapper {
-  --width: 100px;
+  --width: 500px;
 
   display: grid;
   grid-template-rows: max-content 1fr;
 }
 
+.tabs_wrapper.top {
+  grid-template-rows: max-content 1fr;
+}
+
+.tabs_wrapper.bottom {
+  grid-template-rows: 1fr max-content;
+}
+
 .tabs_button_container {
   display: flex;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .tabs_button_container button {
-  width: var(--width);
-  min-width: var(--width);
   text-align: left;
   padding: 4px 8px;
   border: none;
-  color: var(--text);
+  color: var(--text100);
   background-color: var(--secoundary200);
   cursor: pointer;
   transition: all 400ms ease-in-out;
   border: 1px solid transparent;
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-weight: bold;
-  border-radius: 8px 8px 0 0;
 }
 
-.tabs_button_container button.unselected {
+.tabs_button_container.top button {
+  border-radius: 8px 8px 0 0;
+}
+.tabs_button_container.bottom button {
+  border-radius: 0 0 8px 8px;
+}
+
+.tabs_button_container.top button.unselected {
   border-bottom: 1px solid var(--primary);
+}
+.tabs_button_container.bottom button.unselected {
+  border-top: 1px solid var(--primary);
 }
 
 .tabs_button_container button.unselected:hover {
   background-color: var(--secoundary100);
 }
 
-.tabs_button_container button.selected {
+.tabs_button_container.top button.selected {
   background-color: var(--secoundary400);
   border: 1px solid var(--primary);
   border-bottom-color: transparent;
+}
+.tabs_button_container.bottom button.selected {
+  background-color: var(--secoundary400);
+  border: 1px solid var(--primary);
+  border-top-color: transparent;
 }
 
 .tabs_button_container button.selected:hover {
@@ -48,12 +66,21 @@
 
 .top_border {
   height: 100%;
-  width: 100%;
+  flex: 1;
+}
+
+.tabs_button_container.top .top_border {
   border-bottom: 1px solid var(--primary);
+}
+
+.tabs_button_container.bottom .top_border {
+  border-top: 1px solid var(--primary);
 }
 
 .tabs_element_container {
   width: 100%;
   height: 100%;
+  max-height: 100%;
+  overflow: auto;
   border-left: 1px solid var(--primary);
 }

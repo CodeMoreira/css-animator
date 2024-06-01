@@ -1,0 +1,22 @@
+.input_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text100);
+  width: 100%;
+}
+
+.input_wrapper label {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.input_wrapper input {
+  width: 100%;
+  background-color: transparent;
+  border: 2px solid var(--secoundary100);
+  padding: 8px 12px;
+  color: var(--text100);
+  font-size: 16px;
+  border-radius: 8px;
+}

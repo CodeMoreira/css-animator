@@ -1,0 +1,12 @@
+.primary_button {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: var(--primary);
+  color: var(--text100);
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.primary_button:disabled {
+  opacity: 0.5;
+}

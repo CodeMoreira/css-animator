@@ -3,16 +3,25 @@ import playIcon from  "../../assets/play-icon.svg"
 import pauseIcon from  "../../assets/pause-icon.svg"
 import TimeLine from "./TimeLine"
 import "./style.css"
-import { convertMsToString } from "../../utils/convertMsToString"
-import { convertTimeToString } from "../../utils/convertTimeToString"
+import MaxTime from "./MaxTime"
+import Timer from "./Timer"
+import { useEffect } from "react"
 
 export default function Controls() {
-    const { play, setPlay, currentTimePercentage, time } = useAnimation()
+    const { play, setPlay } = useAnimation()
 
-    const baseTimeValue = Math.floor(currentTimePercentage * time)
-    const currentTimeInMs = convertMsToString(baseTimeValue % 1000)
-    const currentTimeInSec = convertTimeToString(Math.floor(baseTimeValue / 1000) % 60)
-    const currentTimeInMin = convertTimeToString(Math.floor(baseTimeValue / 1000 / 60) % 60)
+    useEffect(() => {
+        const onKeyUp = ({ key }: KeyboardEvent) => {
+            // space key
+            if (key === " ") {
+                setPlay(prev => !prev)
+            }
+        }
+
+        window.addEventListener("keyup", onKeyUp)
+
+        return () => window.removeEventListener("keyup", onKeyUp)
+    }, [])
 
     return (
         <div className="comtrols_wrapper">
@@ -25,7 +34,7 @@ export default function Controls() {
             <TimeLine />
 
             <div className="show_time_container">
-                <span>{currentTimeInMin}:{currentTimeInSec}:{currentTimeInMs}</span>
+                <Timer /> / <MaxTime />
             </div>
         </div>
     )

@@ -1,0 +1,128 @@
+.options_wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.options_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.animation_timeline_wrapper {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  max-height: 100%;
+  border-right: 2px solid var(--secoundary200);
+  padding: 0 16px;
+  overflow-y: auto;
+}
+
+.percentage_line_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.animation_timeline_container {
+  width: 100%;
+  height: fit-content;
+  min-height: 100%;
+  background-color: var(--secoundary300);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.line {
+  width: 1px;
+  height: 100%;
+  opacity: 0.6;
+  background-color: var(--primary);
+  position: absolute;
+}
+
+.animation_attribute_names {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.animation_attribute_delete_wrapper {
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attribute_container {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.attribute_container p {
+  width: 100%;
+  color: var(--text100);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attribute_delete_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40px;
+  color: var(--text100);
+  font-size: 24px;
+}
+
+.attribute_delete_button:hover {
+  opacity: 1;
+  color: var(--primary);
+}
+
+.attribute_divider {
+  width: 100%;
+  min-height: 2px;
+  background-color: var(--secoundary200);
+}
+
+.attribute_button {
+  width: 100%;
+  min-height: 40px;
+  color: var(--text100);
+  font-weight: bold;
+  font-size: 16px;
+  background-color: var(--secoundary100);
+  border-radius: 8px;
+}
+
+.attribute_keyframe {
+  width: 10px;
+  height: 10px;
+  background: white;
+  transform: rotate(45deg) translateX(-40%) translateY(40%);
+  position: absolute;
+}
+
+.inputs_wrapper {
+  width: 200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px;
+  overflow-y: auto;
+}
