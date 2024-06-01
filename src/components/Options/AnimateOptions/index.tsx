@@ -82,7 +82,8 @@ export default function AnimateOptions() {
                         className="animation_timeline_container"
                         onMouseMove={({ currentTarget, screenX }) => {
                             const elementWidth = currentTarget.clientWidth
-                            const leftDistance = 146
+                            
+                            const leftDistance = 148
 
                             const realPostion = screenX - leftDistance
                             const percentage = Number(((realPostion * 100) / elementWidth).toFixed())
@@ -90,16 +91,17 @@ export default function AnimateOptions() {
                             if (frameSelected) {
                                 const currentAttr = animations[frameSelected.attr]
                                 const lastIndex = currentAttr.length - 1
-                                const prevFramePercentage = frameSelected.index > 0 ? currentAttr[frameSelected.index - 1].percentage : 0
-                                const nextFramePercentage = frameSelected.index < lastIndex ? currentAttr[frameSelected.index + 1].percentage : 100
+                                const prevFramePercentage = frameSelected.index > 0 ? currentAttr[frameSelected.index - 1].percentage : null
+                                const nextFramePercentage = frameSelected.index < lastIndex ? currentAttr[frameSelected.index + 1].percentage : 101
     
-                                if (percentage > prevFramePercentage && percentage < nextFramePercentage) {
+                                const checkPrev = prevFramePercentage ? percentage > prevFramePercentage : percentage >= 0
+
+                                if (checkPrev && percentage < nextFramePercentage) {
                                     setMousePostion(percentage)
                                 }
                             }
                         }}
                     >
-
                         <div className="line" style={{ left: `${Math.floor(currentTimePercentage * 100)}%` }}></div>
 
                         {animationsArray.map(([ attribute, keyframes ]) => (
@@ -108,8 +110,11 @@ export default function AnimateOptions() {
                                     className="attribute_container"
                                     onClick={({ currentTarget, screenX }) => {
                                         const elementWidth = currentTarget.clientWidth
+                            
+                                        const leftDistance = 148
 
-                                        const percentage = Number((((screenX * 100) / elementWidth) - 13).toFixed())
+                                        const realPostion = screenX - leftDistance
+                                        const percentage = Number(((realPostion * 100) / elementWidth).toFixed())
 
                                         const isCurrentMoreThanPrev = keyframes.length ? (percentage > keyframes[keyframes.length - 1].percentage) : true
 
@@ -137,8 +142,8 @@ export default function AnimateOptions() {
                                                 key={`${percentage}-${percentageIndex}`}
                                                 onMouseOver={() => setIsHoveringFrame(true)}
                                                 onMouseLeave={() => setIsHoveringFrame(false)}
-                                                onMouseDown={() => setDraggingFrame(true)}
-                                                onMouseUp={() => setDraggingFrame(false)}
+                                                onMouseDownCapture={() => setDraggingFrame(true)}
+                                                onMouseUpCapture={() => setDraggingFrame(false)}
                                                 onClick={() => setFrameSelected({ attr: attribute, index: percentageIndex })}
                                                 className="attribute_keyframe"
                                                 style={{
@@ -182,6 +187,7 @@ export default function AnimateOptions() {
                 <div className="inputs_wrapper">
                     {frameSelected && (
                         <>
+                            <span>{animations[frameSelected.attr][frameSelected.index].percentage}%</span>
                             <TextInput
                                 label="value"
                                 value={animations[frameSelected.attr][frameSelected.index].value as string}
