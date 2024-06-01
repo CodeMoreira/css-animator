@@ -190,7 +190,6 @@ export default function AnimateOptions() {
                 <div className="inputs_wrapper">
                     {frameSelected && (
                         <>
-                            <span>Press "Esc" to unselect</span>
                             <TextInput
                                 label="value"
                                 value={animations[frameSelected.attr][frameSelected.index].value as string}
