@@ -6,6 +6,7 @@ import Tabs from './components/Tabs/index';
 import AnimateOptions from './components/Options/AnimateOptions';
 import SupportOptions from './components/Options/SupportOptions';
 import AddNewAttributeModal from './components/AddNewAttributeModal';
+import ConfigsOptions from './components/Options/ConfigsOptions';
 
 function App() {
   const { html, css } = useAnimation()
@@ -13,14 +14,16 @@ function App() {
   return (
     <div className='wrapper'>
       <div className="animate_editor_wapper">
-        <div className='player_wrapper'></div>
+        <div className='player_wrapper'>
+          <div className='element'></div>
+        </div>
         <Controls />
         <Tabs
           height="300px"
           placement='bottom'
           tabs={{
             Animate: <AnimateOptions />,
-            Configs: <AnimateOptions />,
+            Configs: <ConfigsOptions />,
             "Support me": <SupportOptions />,
           }}
         />
