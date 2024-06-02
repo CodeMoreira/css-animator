@@ -1,16 +1,25 @@
 import { Animations } from "../contexts/animationProvider";
 
+export type IDefaultStyle = Array<string>;
+
 type Example_animations = Record<
-  string,
+  "none" | "zoom_and_spin" | "square_to_circle" | "throw_and_fly",
   {
     time: number;
+    defaultStyle: IDefaultStyle;
     animation: Animations;
   }
 >;
 
 export const example_animations: Example_animations = {
+  none: {
+    time: 1000,
+    defaultStyle: [],
+    animation: {},
+  },
   zoom_and_spin: {
     time: 3000,
+    defaultStyle: ["width: 200px", "height: 200px", "background: white"],
     animation: {
       rotate: [
         {
@@ -64,6 +73,7 @@ export const example_animations: Example_animations = {
   },
   square_to_circle: {
     time: 3000,
+    defaultStyle: ["width: 200px", "height: 200px", "background: white"],
     animation: {
       rotate: [
         {
@@ -107,6 +117,12 @@ export const example_animations: Example_animations = {
   },
   throw_and_fly: {
     time: 5000,
+    defaultStyle: [
+      "width: 200px",
+      "height: 200px",
+      "background: white",
+      "position: relative",
+    ],
     animation: {
       top: [
         {
@@ -362,4 +378,4 @@ export const example_animations: Example_animations = {
       ],
     },
   },
-};
+} as const;

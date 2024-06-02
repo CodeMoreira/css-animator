@@ -1,11 +1,13 @@
 import { Dispatch, PropsWithChildren, SetStateAction, createContext, useEffect, useState } from "react"
 import { ControlAnimation, setAnimationTime } from "../utils/controlAnimation"
-import { example_animations } from "../utils/exampleAnimations"
+import { IDefaultStyle, example_animations } from "../utils/exampleAnimations"
 
 export type Animations = Record<string, Array<{
     percentage: number
     value: string
 }>>
+
+export type Example_animations = keyof typeof example_animations
 
 interface IAnimationContext {
     html: string
@@ -24,6 +26,10 @@ interface IAnimationContext {
     setOpenAddModal: Dispatch<SetStateAction<boolean>>
     animationType: AnimationType
     setAnimationType: Dispatch<SetStateAction<AnimationType>>
+    defaultStyle: IDefaultStyle
+    setDefaultStyle: Dispatch<SetStateAction<IDefaultStyle>>
+    exampleAnimation: Example_animations
+    setExampleAnimation: Dispatch<SetStateAction<Example_animations>>
 }
 
 type PreGenerateAnimation = Record<string, Array<{ 
@@ -38,12 +44,16 @@ export const AnimationContext = createContext<IAnimationContext>({} as IAnimatio
 export default function AnimationProvider({ children }: PropsWithChildren) {
     const [html, setHtml] = useState<string>(`<div class="element"></div>`)
     const [css, setCss] = useState<string>("")
-    const [time, setTime] = useState<number>(example_animations.throw_and_fly.time)
     const [currentTimePercentage, setCurrentTimePercentage] = useState<number>(0)
     const [play, setPlay] = useState<boolean>(false)
-    const [animations, setAnimations] = useState<Animations>(example_animations.throw_and_fly.animation)
     const [openAddModal, setOpenAddModal] = useState<boolean>(false)
     const [animationType, setAnimationType] = useState<AnimationType>("ease-in-out")
+    const [exampleAnimation, setExampleAnimation] = useState<Example_animations>("throw_and_fly")
+    
+    const defaultExampleAnimation = example_animations.throw_and_fly
+    const [time, setTime] = useState<number>(defaultExampleAnimation.time)
+    const [defaultStyle, setDefaultStyle] = useState<IDefaultStyle>(defaultExampleAnimation.defaultStyle)
+    const [animations, setAnimations] = useState<Animations>(defaultExampleAnimation.animation)
 
     const insertCss = (cssString: string) => {
         try {
@@ -83,11 +93,7 @@ export default function AnimationProvider({ children }: PropsWithChildren) {
 
         const elementStyle = `
 .element {
-    width: 200px;
-    height: 200px;
-    background: white;
-    position: relative;
-    animation: ${time}ms ${animationType} custom-animation infinite;
+    ${defaultStyle.join(";\n\t")}${defaultStyle.length ? ";\n\t" : ""}animation: ${time}ms ${animationType} custom-animation infinite;
 }`
         const keyframeString = `
 @keyframes custom-animation {
@@ -105,7 +111,7 @@ ${keyframeString}`)
 
         insertCss(keyframeString)
         insertCss(elementStyle)
-    }, [animations, play])
+    }, [animations, play, defaultStyle])
 
     useEffect(() => {
         const convertedTime = Math.fround(currentTimePercentage * time)
@@ -117,6 +123,14 @@ ${keyframeString}`)
     useEffect(() => {
         ControlAnimation("pause")
     }, [play])
+
+    useEffect(() => {
+        const selectedDefaultAnimation = example_animations[exampleAnimation];
+
+        setTime(selectedDefaultAnimation.time)
+        setDefaultStyle(selectedDefaultAnimation.defaultStyle)
+        setAnimations(selectedDefaultAnimation.animation)
+    }, [exampleAnimation])
 
     return (
         <AnimationContext.Provider value={{
@@ -135,7 +149,11 @@ ${keyframeString}`)
             openAddModal,
             setOpenAddModal,
             animationType,
-            setAnimationType
+            setAnimationType,
+            defaultStyle,
+            setDefaultStyle,
+            exampleAnimation,
+            setExampleAnimation,
         }}>
             {children}
         </AnimationContext.Provider>
