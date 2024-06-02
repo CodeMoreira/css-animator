@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { useAnimation } from "../../hooks/useAnimation"
 import "./style.css"
+import { ControlAnimation, setAnimationTime } from "../../utils/controlAnimation"
 
 export default function TimeLine() {
     const { play, setPlay, time, currentTimePercentage, setCurrentTimePercentage } = useAnimation()
@@ -11,6 +12,8 @@ export default function TimeLine() {
             clearInterval(timer.current)
             setPlay(false)
             setCurrentTimePercentage(0)
+            ControlAnimation("pause")
+            setAnimationTime(0)
         }
     }, [currentTimePercentage])
 

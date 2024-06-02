@@ -32,6 +32,7 @@ export default function AddNewAttributeModal() {
             onClose={handleClose}
         >
             <TextInput
+                autoFocus
                 list="browsers"
                 label="Attribute"
                 value={attribute}

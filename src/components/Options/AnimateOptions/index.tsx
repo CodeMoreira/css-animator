@@ -187,10 +187,10 @@ export default function AnimateOptions() {
                 <div className="inputs_wrapper">
                     {frameSelected && (
                         <>
-                            <span>{animations[frameSelected.attr][frameSelected.index].percentage}%</span>
+                            <span>{animations[frameSelected.attr]?.[frameSelected.index]?.percentage}%</span>
                             <TextInput
                                 label="value"
-                                value={animations[frameSelected.attr][frameSelected.index].value as string}
+                                value={animations[frameSelected.attr]?.[frameSelected.index]?.value as string}
                                 onChange={value => {
                                     setAnimations(prev => ({
                                         ...prev,
