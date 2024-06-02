@@ -6,9 +6,10 @@ import "./style.css"
 import MaxTime from "./MaxTime"
 import Timer from "./Timer"
 import { useEffect } from "react"
+import { convertMsToString } from "../../utils/convertMsToString"
 
 export default function Controls() {
-    const { play, setPlay } = useAnimation()
+    const { play, setPlay, currentTimePercentage } = useAnimation()
 
     useEffect(() => {
         const onKeyUp = ({ key }: KeyboardEvent) => {
@@ -34,7 +35,7 @@ export default function Controls() {
             <TimeLine />
 
             <div className="show_time_container">
-                <Timer /> / <MaxTime />
+                <span>{convertMsToString(Math.floor(currentTimePercentage * 100))}%</span> | <Timer /> / <MaxTime />
             </div>
         </div>
     )

@@ -59,6 +59,7 @@ button:hover {
 }
 
 .show_time_container {
+  width: 210px;
   gap: 8px;
   color: var(--text100);
   display: flex;
