@@ -1,12 +1,12 @@
 import Divider from "../../Divider"
 import "../style.css"
 import Credits from "./Credits"
-import Donnation from "./Donnation"
+import Donation from "./Donation"
 
 export default function SupportOptions() {
     return (
         <div className="options_wrapper">
-            <Donnation />
+            <Donation />
             <Divider vertical />
             <Credits />
         </div>
