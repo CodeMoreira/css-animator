@@ -117,7 +117,6 @@ ${keyframeString}`)
         const convertedTime = Math.fround(currentTimePercentage * time)
         const convertedTimeChecked = convertedTime > 0 ? convertedTime - 1 : convertedTime
         setAnimationTime(convertedTimeChecked)
-        console.log(convertedTimeChecked)
     }, [currentTimePercentage])
 
     useEffect(() => {

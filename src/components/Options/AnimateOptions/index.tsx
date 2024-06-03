@@ -7,6 +7,8 @@ import PrimaryButton from './../../Buttons/Primary/index';
 
 export default function AnimateOptions() {
     const { 
+        play,
+        setCurrentTimePercentage,
         currentTimePercentage,
         setAnimations,
         animations,
@@ -58,6 +60,14 @@ export default function AnimateOptions() {
 
         return () => window.removeEventListener("keyup", onKeyUp)
     }, [frameSelected])
+
+    useEffect(() => {
+        const frameSelectedData = frameSelected ? animations?.[frameSelected.attr]?.[frameSelected.index] ?? null : null
+
+        if (frameSelectedData && !play) {
+            setCurrentTimePercentage(Number((frameSelectedData.percentage / 100).toFixed(2)))
+        }
+    }, [play, frameSelected, animations])
 
     return (
         <div className="options_wrapper">
