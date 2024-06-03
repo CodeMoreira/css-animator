@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import "./style.css"
 
 interface ModalProps {
@@ -19,35 +18,11 @@ const Modal: React.FC<ModalProps> = ({
   width,
   height
 }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const modalRef = useRef<HTMLDivElement>(document.createElement('div'));
-
-  useEffect(() => {
-    document.body.appendChild(modalRef.current);
-    return () => {
-        document.body.removeChild(modalRef.current)
-    };
-  }, []);
-
-  useEffect(() => {
-    if (show) {
-      const modal = document.createElement('div');
-      modalRef.current = modal;
-      document.body.appendChild(modal);
-      setIsMounted(true);
-    } else {
-      if (modalRef.current) {
-        document.body.removeChild(modalRef.current);
-        setIsMounted(false);
-      }
-    }
-  }, [show]);
-
-  if (!isMounted) {
-    return null;
+  if (!show) {
+    return null
   }
 
-  return ReactDOM.createPortal(
+  return (
     <div className="modal_wrapper">
         <div className="modal_container" style={{ width, height }}>
             <div className="modal_header">
@@ -57,8 +32,7 @@ const Modal: React.FC<ModalProps> = ({
             {children}
         </div>
         <div className="modal_backdrop" onClick={onClose}></div>
-    </div>,
-    modalRef.current
+    </div>
   );
 };
 
