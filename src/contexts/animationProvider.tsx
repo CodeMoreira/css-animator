@@ -1,13 +1,11 @@
 import { Dispatch, PropsWithChildren, SetStateAction, createContext, useEffect, useState } from "react"
 import { ControlAnimation, setAnimationTime } from "../utils/controlAnimation"
 import { IDefaultStyle, example_animations } from "../utils/exampleAnimations"
+import { AnimationObj, checkAnimationJsonFormat } from "../utils/checkAnimationJsonFormat"
 
-export type Animations = Record<string, Array<{
-    percentage: number
-    value: string
-}>>
+export type Animations = Record<string, Array<AnimationObj>>
 
-export type Example_animations = keyof typeof example_animations
+export type Example_animations = keyof typeof example_animations | "custom"
 
 interface IAnimationContext {
     html: string
@@ -30,6 +28,8 @@ interface IAnimationContext {
     setDefaultStyle: Dispatch<SetStateAction<IDefaultStyle>>
     exampleAnimation: Example_animations
     setExampleAnimation: Dispatch<SetStateAction<Example_animations>>
+    encodedAnimation: string
+    setEncodedAnimation: Dispatch<SetStateAction<string>>
 }
 
 type PreGenerateAnimation = Record<string, Array<{ 
@@ -48,12 +48,13 @@ export default function AnimationProvider({ children }: PropsWithChildren) {
     const [play, setPlay] = useState<boolean>(false)
     const [openAddModal, setOpenAddModal] = useState<boolean>(false)
     const [animationType, setAnimationType] = useState<AnimationType>("ease-in-out")
-    const [exampleAnimation, setExampleAnimation] = useState<Example_animations>("throw_and_fly")
     
     const defaultExampleAnimation = example_animations.throw_and_fly
+    const [exampleAnimation, setExampleAnimation] = useState<Example_animations>("throw_and_fly")
     const [time, setTime] = useState<number>(defaultExampleAnimation.time)
     const [defaultStyle, setDefaultStyle] = useState<IDefaultStyle>(defaultExampleAnimation.defaultStyle)
     const [animations, setAnimations] = useState<Animations>(defaultExampleAnimation.animation)
+    const [encodedAnimation, setEncodedAnimation] = useState<string>(btoa(JSON.stringify(animations)))
 
     const insertCss = (cssString: string) => {
         try {
@@ -77,6 +78,11 @@ export default function AnimationProvider({ children }: PropsWithChildren) {
     }
 
     useEffect(() => {
+        console.log("atualizou!", {
+            exampleAnimation,
+            time,
+            defaultStyle,
+        })
         const preGenerateAnimation: PreGenerateAnimation = {}
 
         Object.entries(animations).forEach(([propertie, keyframes]) => {
@@ -131,6 +137,35 @@ ${keyframeString}`)
         setAnimations(selectedDefaultAnimation.animation)
     }, [exampleAnimation])
 
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            try {
+                const decodeAnimation = JSON.parse(atob(encodedAnimation))
+                const ifObjValid = checkAnimationJsonFormat(decodeAnimation)
+                if (ifObjValid) {
+                    setAnimations(decodeAnimation)
+                    Object.entries(example_animations).forEach(([key, { encodedAnimation: innerEncodedAnimation }]) => {
+                        if (innerEncodedAnimation === encodedAnimation) {
+                            setExampleAnimation(key as Example_animations)
+                        }
+                    })
+                } else {
+                    setExampleAnimation("custom")
+                }
+            } catch (error) {
+                console.error(error)
+                setExampleAnimation("custom")
+            }
+        }, 500);
+        
+        return () => clearTimeout(timeout)
+    }, [encodedAnimation])
+
+    useEffect(() => {
+        const encodeAnimatios = btoa(JSON.stringify(animations))
+        setEncodedAnimation(encodeAnimatios)
+    }, [animations])
+
     return (
         <AnimationContext.Provider value={{
             html,
@@ -153,6 +188,8 @@ ${keyframeString}`)
             setDefaultStyle,
             exampleAnimation,
             setExampleAnimation,
+            encodedAnimation,
+            setEncodedAnimation,
         }}>
             {children}
         </AnimationContext.Provider>
