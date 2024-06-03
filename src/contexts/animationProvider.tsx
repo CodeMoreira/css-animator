@@ -144,8 +144,9 @@ ${keyframeString}`)
                 const ifObjValid = checkAnimationJsonFormat(decodeAnimation)
                 if (ifObjValid) {
                     setAnimations(decodeAnimation)
-                    Object.entries(example_animations).forEach(([key, { encodedAnimation: innerEncodedAnimation }]) => {
-                        if (innerEncodedAnimation === encodedAnimation) {
+                    Object.entries(example_animations).forEach(([key, { animation: innerAnimation }]) => {
+                        const encodingAnimation = btoa(JSON.stringify(innerAnimation))
+                        if (encodingAnimation === encodedAnimation) {
                             setExampleAnimation(key as Example_animations)
                         }
                     })
