@@ -1,0 +1,20 @@
+.donnation_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 100%;
+}
+
+.pix_container {
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pix_container span {
+  font-size: 12px;
+  font-weight: bold;
+}

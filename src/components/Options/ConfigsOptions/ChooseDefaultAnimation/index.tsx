@@ -12,6 +12,7 @@ export default function SelectAnimationInputs() {
             <h3>Examples</h3>
             {Object.keys(example_animations).map(animation => (
                 <SecoundaryButton
+                    key={animation}
                     text={animation}
                     onClick={() => setExampleAnimation(animation as Example_animations)}
                 />
