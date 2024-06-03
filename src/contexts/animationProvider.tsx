@@ -130,11 +130,13 @@ ${keyframeString}`)
     }, [play])
 
     useEffect(() => {
-        const selectedDefaultAnimation = example_animations[exampleAnimation];
-
-        setTime(selectedDefaultAnimation.time)
-        setDefaultStyle(selectedDefaultAnimation.defaultStyle)
-        setAnimations(selectedDefaultAnimation.animation)
+        if (exampleAnimation !== "custom") {
+            const selectedDefaultAnimation = example_animations[exampleAnimation];
+    
+            setTime(selectedDefaultAnimation.time)
+            setDefaultStyle(selectedDefaultAnimation.defaultStyle)
+            setAnimations(selectedDefaultAnimation.animation)
+        }
     }, [exampleAnimation])
 
     useEffect(() => {
@@ -144,12 +146,16 @@ ${keyframeString}`)
                 const ifObjValid = checkAnimationJsonFormat(decodeAnimation)
                 if (ifObjValid) {
                     setAnimations(decodeAnimation)
-                    Object.entries(example_animations).forEach(([key, { animation: innerAnimation }]) => {
+                    const exampleAnimatioByCode = Object.entries(example_animations).find(item => {
+                        const { animation: innerAnimation } = item[1]
                         const encodingAnimation = btoa(JSON.stringify(innerAnimation))
-                        if (encodingAnimation === encodedAnimation) {
-                            setExampleAnimation(key as Example_animations)
-                        }
+                        return encodingAnimation === encodedAnimation
                     })
+                    if (exampleAnimatioByCode) {
+                        setExampleAnimation(exampleAnimatioByCode[0] as Example_animations)
+                    } else {
+                        setExampleAnimation("custom")
+                    }
                 } else {
                     setExampleAnimation("custom")
                 }

@@ -3,7 +3,7 @@ import { Animations } from "../contexts/animationProvider";
 export type IDefaultStyle = Array<string>;
 
 type Example_animations = Record<
-  "custom" | "zoom_and_spin" | "square_to_circle" | "throw_and_fly",
+  "zoom_and_spin" | "square_to_circle" | "throw_and_fly",
   {
     time: number;
     defaultStyle: IDefaultStyle;
@@ -12,11 +12,6 @@ type Example_animations = Record<
 >;
 
 export const example_animations: Example_animations = {
-  custom: {
-    time: 1000,
-    defaultStyle: [],
-    animation: {},
-  },
   zoom_and_spin: {
     time: 3000,
     defaultStyle: ["width: 200px", "height: 200px", "background: white"],
