@@ -78,11 +78,6 @@ export default function AnimationProvider({ children }: PropsWithChildren) {
     }
 
     useEffect(() => {
-        console.log("atualizou!", {
-            exampleAnimation,
-            time,
-            defaultStyle,
-        })
         const preGenerateAnimation: PreGenerateAnimation = {}
 
         Object.entries(animations).forEach(([propertie, keyframes]) => {
