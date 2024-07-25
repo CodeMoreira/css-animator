@@ -51,7 +51,7 @@ This feature allows you to share your animations or view/edit anyone's animation
 This feature allows you to share your animations or view/edit anyone's animation.
 
 <kbd>
-  <img alt="animation encoded" src="https://github.com/user-attachments/assets/f18b7d5c-c73f-4edd-b56d-0291e2602ce3">
+  <img alt="default styles" src="https://github.com/user-attachments/assets/787144e6-d5ea-4384-a80d-3e0aa0ba43bc">
 </kbd>
 
 ### Examples
