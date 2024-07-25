@@ -35,14 +35,18 @@ export default function TimeTrack({ attribute, keyframes, frameSelected, setFram
         setIsDragging(false)
     }
 
+    const calcPercentage = (clientX: number) => {
+        const containerOffsetLeft = timeLineContainerRef.current?.offsetLeft ?? 0
+        const containerClientWidth = timeLineContainerRef.current?.clientWidth ?? 0
+        const realClientX = clientX - containerOffsetLeft
+
+        return convertToPercentage(realClientX, containerClientWidth, true)
+    }
+
     const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
         if (isDragging && frameSelected) {
             const { clientX } = event
-            const containerOffsetLeft = timeLineContainerRef.current?.offsetLeft ?? 0
-            const containerClientWidth = timeLineContainerRef.current?.clientWidth ?? 0
-            const realClientX = clientX - containerOffsetLeft
-
-            let percentage = convertToPercentage(realClientX, containerClientWidth, true)
+            let percentage = calcPercentage(clientX)
 
             if (percentage < 0) {
                 percentage = 0
@@ -69,8 +73,39 @@ export default function TimeTrack({ attribute, keyframes, frameSelected, setFram
         }
     }
 
+    const newKeyframe = (event: MouseEvent<HTMLDivElement>) => {
+        const { clientX } = event
+        const percentage = calcPercentage(clientX)
+
+        const isThereExistingKeyframe = keyframes.some((keyframe) => keyframe.percentage === percentage)
+        if (isThereExistingKeyframe) {
+            return
+        }
+
+        setFrameSelected({
+            attr: attribute,
+            index: keyframes.length,
+        })
+
+        setIsDragging(true)
+
+        setAnimations((prev) => ({
+            ...prev,
+            [attribute]: [
+                ...prev[attribute],
+                {
+                    value: "",
+                    percentage,
+                },
+            ],
+        }))
+    }
+
     return (
-        <div className="attribute_container">
+        <div
+            className="attribute_container"
+            onMouseDown={newKeyframe}
+        >
             {keyframes.map(({ percentage }, percentageIndex) => {
                 const isFrameSelected = frameSelected?.attr === attribute && frameSelected.index == percentageIndex
 
