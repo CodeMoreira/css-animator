@@ -52,24 +52,6 @@
   gap: 8px;
 }
 
-.attribute_container {
-  width: 100%;
-  min-height: 40px;
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.attribute_container p {
-  width: 100%;
-  color: var(--text100);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .attribute_delete_button {
   display: flex;
   align-items: center;
@@ -99,22 +81,4 @@
   font-size: 16px;
   background-color: var(--secoundary100);
   border-radius: 8px;
-}
-
-.attribute_keyframe {
-  width: 10px;
-  height: 10px;
-  background: white;
-  transform: rotate(45deg) translateX(-40%) translateY(40%);
-  position: absolute;
-}
-
-.inputs_wrapper {
-  width: 200px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 0 16px;
-  overflow-y: auto;
 }

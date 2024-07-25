@@ -1,0 +1,16 @@
+.attribute_container {
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.attribute_container p {
+  width: 100%;
+  color: var(--text100);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
